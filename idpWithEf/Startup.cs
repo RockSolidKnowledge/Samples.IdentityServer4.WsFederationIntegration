@@ -1,13 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Quickstart.UI;
+using IdentityServer4.WsFederation;
+using IdentityServer4.WsFederation.EntityFramework.DbContexts;
+using IdentityServer4.WsFederation.EntityFramework.Mappers;
+using IdentityServer4.WsFederation.EntityFramework.Stores;
 using IdentityServer4.WsFederation.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace idp
+namespace idpWithEf
 {
     public class Startup
     {
@@ -19,9 +25,19 @@ namespace idp
             ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
         };
 
+        private static readonly RelyingParty RelyingPartyOverrides = new RelyingParty
+        {
+            TokenType = WsFederationConstants.TokenTypes.Saml11TokenProfile11
+        };
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // SAML SP database (DbContext)
+            services.AddDbContext<WsFederationConfigurationDbContext>(db =>
+                db.UseInMemoryDatabase("RelyingParties"));
+            services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();
 
             services.AddIdentityServer(options =>
                 {
@@ -40,18 +56,34 @@ namespace idp
                     options.Licensee = "";
                     options.LicenseKey = "";
                 })
-                .AddInMemoryRelyingParties(new List<RelyingParty>());
+                .AddRelyingPartyStore<RelyingPartyStore>();
+                //.AddInMemoryRelyingParties(new List<RelyingParty>());
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
 
+            SeedRelyingPartyDatabase(app);
+            
             app.UseIdentityServer()
                .UseIdentityServerWsFederationPlugin();
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+        }
+
+        private void SeedRelyingPartyDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<WsFederationConfigurationDbContext>();
+                if (!context.RelyingParties.Any())
+                {
+                    context.RelyingParties.Add(RelyingPartyOverrides.ToEntity());
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
