@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
@@ -33,6 +33,7 @@ namespace idpWithEf
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllersWithViews();
 
             // SAML SP database (DbContext)
             services.AddDbContext<WsFederationConfigurationDbContext>(db =>
@@ -65,12 +66,17 @@ namespace idpWithEf
             app.UseDeveloperExceptionPage();
 
             SeedRelyingPartyDatabase(app);
-            
-            app.UseIdentityServer()
-               .UseIdentityServerWsFederationPlugin();
 
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseRouting();
+
+            app.UseIdentityServer()
+                .UseIdentityServerWsFederationPlugin();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
 
         private void SeedRelyingPartyDatabase(IApplicationBuilder app)

@@ -8,6 +8,7 @@ namespace rp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllersWithViews();
 
             services.AddAuthentication(options =>
                 {
@@ -28,10 +29,14 @@ namespace rp
         {
             app.UseDeveloperExceptionPage();
 
-            app.UseAuthentication();
-
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
     }
 }
