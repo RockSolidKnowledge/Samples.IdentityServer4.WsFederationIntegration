@@ -17,13 +17,5 @@ namespace idp
                 new IdentityResources.Profile(),
             };
         }
-
-        public static IEnumerable<ApiResource> GetApis()
-        {
-            return new ApiResource[]
-            {
-                new ApiResource("api1", "My API #1")
-            };
-        }
     }
 }

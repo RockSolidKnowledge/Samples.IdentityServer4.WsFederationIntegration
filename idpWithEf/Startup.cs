@@ -21,7 +21,7 @@ namespace idpWithEf
         {
             ClientId = "rp1",
             AllowedScopes = {"openid", "profile"},
-            RedirectUris = {"http://localhost:5001/signin-wsfed"},
+            RedirectUris = {"https://localhost:5001/signin-wsfed"},
             ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
         };
 

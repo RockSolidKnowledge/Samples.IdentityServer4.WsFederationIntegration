@@ -15,7 +15,8 @@ namespace idp
         {
             ClientId = "rp1",
             AllowedScopes = {"openid", "profile"},
-            RedirectUris = {"http://localhost:5001/signin-wsfed"},
+            RedirectUris = {"https://localhost:5001/signin-wsfed"},
+            RequireConsent = false,
             ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
         };
 
@@ -33,7 +34,7 @@ namespace idp
                 })
                 .AddTestUsers(TestUsers.Users)
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApis())
+                .AddInMemoryApiResources(new List<ApiResource>())
                 .AddInMemoryClients(new List<Client> {RelyingParty})
                 .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
                 .AddWsFederationPlugin(options =>

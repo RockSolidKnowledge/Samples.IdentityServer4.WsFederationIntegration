@@ -18,7 +18,7 @@ namespace rp
                 .AddCookie("cookie")
                 .AddWsFederation("wsfed", options =>
                 {
-                    options.MetadataAddress = "http://localhost:5000/wsfed";
+                    options.MetadataAddress = "https://localhost:5000/wsfed";
                     options.Wtrealm = "rp1";
                     options.RequireHttpsMetadata = false;
                     options.SignInScheme = "cookie";
