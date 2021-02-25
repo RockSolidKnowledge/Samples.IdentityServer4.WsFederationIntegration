@@ -4,14 +4,15 @@ using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Quickstart.UI;
-using IdentityServer4.WsFederation;
-using IdentityServer4.WsFederation.EntityFramework.DbContexts;
-using IdentityServer4.WsFederation.EntityFramework.Mappers;
-using IdentityServer4.WsFederation.EntityFramework.Stores;
-using IdentityServer4.WsFederation.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Rsk.WsFederation;
+using Rsk.WsFederation.Configuration;
+using Rsk.WsFederation.EntityFramework.DbContexts;
+using Rsk.WsFederation.EntityFramework.Mappers;
+using Rsk.WsFederation.EntityFramework.Stores;
+using Rsk.WsFederation.Models;
 
 namespace idpWithEf
 {

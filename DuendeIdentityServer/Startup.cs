@@ -1,43 +1,53 @@
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using IdentityServer4;
-using IdentityServer4.Models;
-using IdentityServer4.Quickstart.UI;
+﻿// Copyright (c) Duende Software. All rights reserved.
+// See LICENSE in the project root for license information.
+
+
+using Duende.IdentityServer.Configuration;
+using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.WsFederation.Configuration;
 using Rsk.WsFederation.Models;
+using System.Collections.Generic;
+using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
-namespace idp
+namespace DuendeIdP
 {
     public class Startup
     {
         private static readonly Client RelyingParty = new Client
         {
             ClientId = "rp1",
-            AllowedScopes = {"openid", "profile"},
-            RedirectUris = {"https://localhost:5001/signin-wsfed"},
+            AllowedScopes = { "openid", "profile" },
+            RedirectUris = { "https://localhost:5001/signin-wsfed" },
             RequireConsent = false,
             ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
         };
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddControllersWithViews();
 
             services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                })
+            {
+                options.KeyManagement.Enabled = true;
+                options.KeyManagement.SigningAlgorithms = new[] {
+                    new SigningAlgorithmOptions("RS256") {UseX509Certificate = true}
+                };
+
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+
+                // see https://docs.duendesoftware.com/identityserver/v5/fundamentals/resources/
+                options.EmitStaticAudienceClaim = true;
+            })
                 .AddTestUsers(TestUsers.Users)
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(new List<ApiResource>())
-                .AddInMemoryClients(new List<Client> {RelyingParty})
-                .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
+                .AddInMemoryClients(new List<Client> { RelyingParty })
                 .AddWsFederationPlugin(options =>
                 {
                     options.Licensee = "";
@@ -55,7 +65,7 @@ namespace idp
             app.UseRouting();
 
             app.UseIdentityServer()
-               .UseIdentityServerWsFederationPlugin();
+                .UseIdentityServerWsFederationPlugin();
 
             app.UseAuthorization();
 
