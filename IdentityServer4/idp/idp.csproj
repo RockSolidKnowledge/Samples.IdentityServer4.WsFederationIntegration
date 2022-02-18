@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityServer4" Version="4.1.1" />
-    <PackageReference Include="Rsk.WsFederation" Version="4.0.0" />
-    <PackageReference Include="Rsk.WsFederation.IdentityServer4" Version="4.1.0" />
+    <PackageReference Include="IdentityServer4" Version="4.1.2" />
+    <PackageReference Include="Rsk.WsFederation" Version="5.0.0" />
+    <PackageReference Include="Rsk.WsFederation.IdentityServer4" Version="5.0.0" />
 
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
