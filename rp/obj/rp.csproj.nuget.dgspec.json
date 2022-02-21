@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj": {}
+    "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj": {}
   },
   "projects": {
-    "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj": {
+    "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj",
+        "projectUniqueName": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj",
         "projectName": "rp",
-        "projectPath": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj",
+        "projectPath": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\rp\\rp.csproj",
         "packagesPath": "C:\\Users\\SundasChoudry\\.nuget\\packages\\",
-        "outputPath": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\rp\\obj\\",
+        "outputPath": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\rp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -21,7 +21,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net6.0"
         ],
         "sources": {
           "C:\\ComponentSpace\\SAML 2 Core\\Disk1\\SAMLv20.Core-licensed\\SAML for .NET Core\\Bin": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -42,12 +42,12 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.WsFederation": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[6.0.0, )"
             }
           },
           "imports": [
@@ -68,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

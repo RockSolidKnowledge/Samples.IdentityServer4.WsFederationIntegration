@@ -28,7 +28,8 @@ namespace idpWithEf
 
         private static readonly RelyingParty RelyingPartyOverrides = new RelyingParty
         {
-            TokenType = WsFederationConstants.TokenTypes.Saml11TokenProfile11
+            Realm = "rp1",
+            TokenType = WsFederationConstants.TokenTypes.Saml2TokenProfile11
         };
 
         public void ConfigureServices(IServiceCollection services)
@@ -36,7 +37,7 @@ namespace idpWithEf
             services.AddMvc();
             services.AddControllersWithViews();
 
-            // SAML SP database (DbContext)
+            // WsFed database (DbContext)
             services.AddDbContext<WsFederationConfigurationDbContext>(db =>
                 db.UseInMemoryDatabase("RelyingParties"));
             services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();

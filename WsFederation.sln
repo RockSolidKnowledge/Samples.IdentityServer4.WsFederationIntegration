@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rp", "rp\rp.csproj", "{6CA8F19A-937F-4D90-9956-62EEB01DF72B}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithEf", "IdentityServer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DuendeIdentityServer", "DuendeIdentityServer", "{B70CA9AB-69AB-4973-BDE0-4C0EEEC42F0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuendeIdentityServer", "DuendeIdentityServer\DuendeIdentityServer.csproj", "{CD6BCAB1-BD0C-4AE8-8D4F-2130977720BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idp", "DuendeIdentityServer\idp\idp.csproj", "{B1394A58-640F-4827-BDD0-053950A8A980}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithEf", "DuendeIdentityServer\idpWithEf\idpWithEf.csproj", "{1858D7C3-567B-49EE-9D8A-E6ABB4E9F17E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +35,14 @@ Global
 		{355693AB-F881-4545-9DE9-3D2E7F8DC509}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{355693AB-F881-4545-9DE9-3D2E7F8DC509}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{355693AB-F881-4545-9DE9-3D2E7F8DC509}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD6BCAB1-BD0C-4AE8-8D4F-2130977720BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD6BCAB1-BD0C-4AE8-8D4F-2130977720BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD6BCAB1-BD0C-4AE8-8D4F-2130977720BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD6BCAB1-BD0C-4AE8-8D4F-2130977720BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1394A58-640F-4827-BDD0-053950A8A980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1394A58-640F-4827-BDD0-053950A8A980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1394A58-640F-4827-BDD0-053950A8A980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1394A58-640F-4827-BDD0-053950A8A980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1858D7C3-567B-49EE-9D8A-E6ABB4E9F17E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1858D7C3-567B-49EE-9D8A-E6ABB4E9F17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1858D7C3-567B-49EE-9D8A-E6ABB4E9F17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1858D7C3-567B-49EE-9D8A-E6ABB4E9F17E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,7 +50,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{76702C76-96AB-45A9-A925-50F4916B70DA} = {ED009EA1-7E5C-44B5-8595-784B99157B98}
 		{355693AB-F881-4545-9DE9-3D2E7F8DC509} = {ED009EA1-7E5C-44B5-8595-784B99157B98}
-		{CD6BCAB1-BD0C-4AE8-8D4F-2130977720BA} = {B70CA9AB-69AB-4973-BDE0-4C0EEEC42F0D}
+		{B1394A58-640F-4827-BDD0-053950A8A980} = {B70CA9AB-69AB-4973-BDE0-4C0EEEC42F0D}
+		{1858D7C3-567B-49EE-9D8A-E6ABB4E9F17E} = {B70CA9AB-69AB-4973-BDE0-4C0EEEC42F0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D96255A8-5F7C-4E89-BD19-28920EDBDD00}

@@ -15,11 +15,11 @@
           "lib/netstandard2.0/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4/4.1.1": {
+      "IdentityServer4/4.1.2": {
         "type": "package",
         "dependencies": {
           "IdentityModel": "4.4.0",
-          "IdentityServer4.Storage": "4.1.1",
+          "IdentityServer4.Storage": "4.1.2",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.0",
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.6.0",
           "Newtonsoft.Json": "12.0.2"
@@ -34,7 +34,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "IdentityServer4.Storage/4.1.1": {
+      "IdentityServer4.Storage/4.1.2": {
         "type": "package",
         "dependencies": {
           "IdentityModel": "4.4.0"
@@ -453,7 +453,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "Rsk.WsFederation/4.0.0": {
+      "Rsk.WsFederation/5.0.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Memory": "3.1.0",
@@ -465,14 +465,17 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Rsk.WsFederation.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
-      "Rsk.WsFederation.IdentityServer4/4.1.0": {
+      "Rsk.WsFederation.IdentityServer4/5.0.0": {
         "type": "package",
         "dependencies": {
           "IdentityServer4": "4.0.0",
           "Microsoft.IdentityModel.Protocols.WsFederation": "5.6.0",
-          "Rsk.WsFederation": "4.0.0"
+          "Rsk.WsFederation": "5.0.0"
         },
         "compile": {
           "lib/netcoreapp3.1/Rsk.WsFederation.IdentityServer4.dll": {}
@@ -1205,30 +1208,30 @@
         "lib/netstandard2.0/IdentityModel.xml"
       ]
     },
-    "IdentityServer4/4.1.1": {
-      "sha512": "PA7IYDMoUQQY7czXa8lmIorvMvLkbjUaWCpB9+guG6N4EvpyHWwsccDXrc/rHIKDdtXsqSgo5jIbsu3y7qOqww==",
+    "IdentityServer4/4.1.2": {
+      "sha512": "blaxxGuOA7v/w1q+fxn97wZ+x2ecG1ZD4mc/N/ZOXMNeFZZhqv+4LF26Gecyik3nWrJPmbMEtQbLmRsKG8k61w==",
       "type": "package",
-      "path": "identityserver4/4.1.1",
+      "path": "identityserver4/4.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "icon.jpg",
-        "identityserver4.4.1.1.nupkg.sha512",
+        "identityserver4.4.1.2.nupkg.sha512",
         "identityserver4.nuspec",
         "lib/netcoreapp3.1/IdentityServer4.dll",
         "lib/netcoreapp3.1/IdentityServer4.pdb",
         "lib/netcoreapp3.1/IdentityServer4.xml"
       ]
     },
-    "IdentityServer4.Storage/4.1.1": {
-      "sha512": "RfbD+kx9/Nss5Cbn43PwUt2LU2ELXZVNamnjX4HsOIscBF+5qLHkofuCd0Gj3Qn4wfO6f/vSLYgvofZRHdVWUg==",
+    "IdentityServer4.Storage/4.1.2": {
+      "sha512": "KoSffyZyyeCNTIyJiZnCuPakJ1QbCHlpty6gbWUj/7yl+w0PXIchgmmJnJSvddzBb8iZ2xew/vGlxWUIP17P2g==",
       "type": "package",
-      "path": "identityserver4.storage/4.1.1",
+      "path": "identityserver4.storage/4.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "icon.jpg",
-        "identityserver4.storage.4.1.1.nupkg.sha512",
+        "identityserver4.storage.4.1.2.nupkg.sha512",
         "identityserver4.storage.nuspec",
         "lib/netstandard2.0/IdentityServer4.Storage.dll",
         "lib/netstandard2.0/IdentityServer4.Storage.pdb",
@@ -1756,32 +1759,34 @@
         "newtonsoft.json.nuspec"
       ]
     },
-    "Rsk.WsFederation/4.0.0": {
-      "sha512": "HAZE06gInADo35GZAU0IIi4hj3y5rVK9MyFJnuO+oeB1UzY10f7HRvgoLPKLsj6sg9337VVNLqX16oOmTIJ+tw==",
+    "Rsk.WsFederation/5.0.0": {
+      "sha512": "rBH0o0to5ojLdLONEkjwcw0MYIgCSsCM6mploKq46m/4/GkMEYmWwUVALdv6eRNVpo9qsrIiGGEJRuidmCR+Iw==",
       "type": "package",
-      "path": "rsk.wsfederation/4.0.0",
+      "path": "rsk.wsfederation/5.0.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "icon.png",
-        "lib/net5.0/Rsk.WsFederation.dll",
-        "lib/net5.0/Rsk.WsFederation.pdb",
+        "lib/net6.0/Rsk.WsFederation.dll",
+        "lib/net6.0/Rsk.WsFederation.pdb",
         "lib/netcoreapp3.1/Rsk.WsFederation.dll",
         "lib/netcoreapp3.1/Rsk.WsFederation.pdb",
-        "rsk.wsfederation.4.0.0.nupkg.sha512",
+        "rsk.wsfederation.5.0.0.nupkg.sha512",
         "rsk.wsfederation.nuspec",
         "wsfed_license.txt"
       ]
     },
-    "Rsk.WsFederation.IdentityServer4/4.1.0": {
-      "sha512": "uUflqdLsBQ2OzR2ZijDIuL9/yd+7Q9Cxlek8PvTz3H/2BpP5WsXr+xnqDMxtyuMVSagK+SjRZJcLiyDNoIYyOw==",
+    "Rsk.WsFederation.IdentityServer4/5.0.0": {
+      "sha512": "xaoZCpvCQMO+r9Jz4uLYU2CEug2Rsbz/evgjldwpR8gyTPhOfptVS6EPtsIpqfINGUm5833F6wXVah7BQZjfbA==",
       "type": "package",
-      "path": "rsk.wsfederation.identityserver4/4.1.0",
+      "path": "rsk.wsfederation.identityserver4/5.0.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "icon.png",
         "lib/netcoreapp3.1/Rsk.WsFederation.IdentityServer4.dll",
         "lib/netcoreapp3.1/Rsk.WsFederation.IdentityServer4.pdb",
-        "rsk.wsfederation.identityserver4.4.1.0.nupkg.sha512",
+        "rsk.wsfederation.identityserver4.5.0.0.nupkg.sha512",
         "rsk.wsfederation.identityserver4.nuspec",
         "wsfed_license.txt"
       ]
@@ -4098,9 +4103,9 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "IdentityServer4 >= 4.1.1",
-      "Rsk.WsFederation >= 4.0.0",
-      "Rsk.WsFederation.IdentityServer4 >= 4.1.0",
+      "IdentityServer4 >= 4.1.2",
+      "Rsk.WsFederation >= 5.0.0",
+      "Rsk.WsFederation.IdentityServer4 >= 5.0.0",
       "Serilog >= 2.8.0",
       "Serilog.AspNetCore >= 3.0.0",
       "Serilog.Sinks.Console >= 3.1.1",
@@ -4114,11 +4119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idp\\idp.csproj",
+      "projectUniqueName": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idp\\idp.csproj",
       "projectName": "idp",
-      "projectPath": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idp\\idp.csproj",
+      "projectPath": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idp\\idp.csproj",
       "packagesPath": "C:\\Users\\SundasChoudry\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idp\\obj\\",
+      "outputPath": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4154,15 +4159,15 @@
         "dependencies": {
           "IdentityServer4": {
             "target": "Package",
-            "version": "[4.1.1, )"
+            "version": "[4.1.2, )"
           },
           "Rsk.WsFederation": {
             "target": "Package",
-            "version": "[4.0.0, )"
+            "version": "[5.0.0, )"
           },
           "Rsk.WsFederation.IdentityServer4": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[5.0.0, )"
           },
           "Serilog": {
             "target": "Package",
@@ -4191,6 +4196,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.21, 3.1.21]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4199,7 +4210,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

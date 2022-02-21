@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj": {}
+    "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj": {}
   },
   "projects": {
-    "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj": {
+    "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj",
+        "projectUniqueName": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj",
         "projectName": "idpWithEf",
-        "projectPath": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj",
+        "projectPath": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\idpWithEf.csproj",
         "packagesPath": "C:\\Users\\SundasChoudry\\.nuget\\packages\\",
-        "outputPath": "C:\\Git\\WsFederation\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\obj\\",
+        "outputPath": "C:\\Git\\Samples.IdentityServer4.WsFederationIntegration\\IdentityServer4\\idpWithEf\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -47,7 +47,7 @@
           "dependencies": {
             "IdentityServer4": {
               "target": "Package",
-              "version": "[4.1.1, )"
+              "version": "[4.1.2, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
@@ -55,15 +55,15 @@
             },
             "Rsk.WsFederation": {
               "target": "Package",
-              "version": "[4.0.0, )"
+              "version": "[5.0.0, )"
             },
             "Rsk.WsFederation.EntityFramework": {
               "target": "Package",
-              "version": "[4.0.0, )"
+              "version": "[5.0.0, )"
             },
             "Rsk.WsFederation.IdentityServer4": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[5.0.0, )"
             },
             "Serilog": {
               "target": "Package",
@@ -92,6 +92,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.21, 3.1.21]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -100,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
