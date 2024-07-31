@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Duende.IdentityServer" Version="6.0.0" />
+	<PackageReference Include="Duende.IdentityServer" Version="6.0.5" />
 
 	<PackageReference Include="Rsk.WsFederation" Version="5.0.0" />
 
