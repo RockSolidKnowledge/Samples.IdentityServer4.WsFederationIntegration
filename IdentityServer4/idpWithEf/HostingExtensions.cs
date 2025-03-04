@@ -10,87 +10,87 @@ using Rsk.WsFederation.EntityFramework.Mappers;
 using Rsk.WsFederation.EntityFramework.Stores;
 using Rsk.WsFederation.Models;
 
-namespace idpWithEf
+namespace idpWithEf;
+
+internal static class HostingExtensions
 {
-    internal static class HostingExtensions
+    private static readonly Client RelyingParty = new()
     {
-        private static readonly Client RelyingParty = new Client
-        {
-            ClientId = "rp1",
-            AllowedScopes = { "openid", "profile" },
-            RedirectUris = { "https://localhost:5001/signin-wsfed" },
-            ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
-        };
+        ClientId = "rp1",
+        AllowedScopes = { "openid", "profile" },
+        RedirectUris = { "https://localhost:5001/signin-wsfed" },
+        ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
+    };
 
-        private static readonly RelyingParty RelyingPartyOverrides = new RelyingParty
-        {
-            Realm = "rp1",
-            TokenType = WsFederationConstants.TokenTypes.Saml2TokenProfile11
-        };
+    private static readonly RelyingParty RelyingPartyOverrides = new()
+    {
+        Realm = "rp1",
+        TokenType = WsFederationConstants.TokenTypes.Saml2TokenProfile11
+    };
 
-        public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddMvc();
-            builder.Services.AddControllersWithViews();
+    public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddMvc();
+        builder.Services.AddControllersWithViews();
 
-            // WsFed database (DbContext)
-            builder.Services.AddDbContext<WsFederationConfigurationDbContext>(db =>
-                db.UseInMemoryDatabase("RelyingParties"));
-            builder.Services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();
+        // WsFed database (DbContext)
+        builder.Services.AddDbContext<WsFederationConfigurationDbContext>(db =>
+            db.UseInMemoryDatabase("RelyingParties"));
+        builder.Services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();
 
-            builder.Services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                })
-                .AddTestUsers(TestUsers.Users)
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApis())
-                .AddInMemoryClients(new List<Client> { RelyingParty })
-                .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
-                .AddWsFederationPlugin(options =>
-                {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
-                })
-                .AddRelyingPartyStore<RelyingPartyStore>();
-            //.AddInMemoryRelyingParties(new List<RelyingParty>());
-
-            return builder.Build();
-        }
-
-        public static WebApplication ConfigurePipeline(this WebApplication app)
-        {
-            app.UseDeveloperExceptionPage();
-
-            SeedRelyingPartyDatabase(app);
-
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseIdentityServer()
-                .UseIdentityServerWsFederationPlugin();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
-
-            return app;
-        }
-
-        private static void SeedRelyingPartyDatabase(IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        builder.Services.AddIdentityServer(options =>
             {
-                var context = serviceScope.ServiceProvider.GetService<WsFederationConfigurationDbContext>();
-                if (!context.RelyingParties.Any())
-                {
-                    context.RelyingParties.Add(RelyingPartyOverrides.ToEntity());
-                    context.SaveChanges();
-                }
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+            })
+            .AddTestUsers(TestUsers.Users)
+            .AddInMemoryIdentityResources(Config.GetIdentityResources())
+            .AddInMemoryApiResources(Config.GetApis())
+            .AddInMemoryClients(new List<Client> { RelyingParty })
+            .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
+            .AddWsFederationPlugin(options =>
+            {
+                options.Licensee = "";
+                options.LicenseKey = "";
+            })
+            .AddRelyingPartyStore<RelyingPartyStore>();
+        //.AddInMemoryRelyingParties(new List<RelyingParty>());
+
+        return builder.Build();
+    }
+
+    public static WebApplication ConfigurePipeline(this WebApplication app)
+    {
+        app.UseDeveloperExceptionPage();
+
+        SeedRelyingPartyDatabase(app);
+
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseIdentityServer()
+            .UseIdentityServerWsFederationPlugin();
+
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+
+        return app;
+    }
+
+    private static void SeedRelyingPartyDatabase(IApplicationBuilder app)
+    {
+        using (IServiceScope? serviceScope =
+               app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        {
+            var context = serviceScope.ServiceProvider.GetService<WsFederationConfigurationDbContext>();
+            if (!context.RelyingParties.Any())
+            {
+                context.RelyingParties.Add(RelyingPartyOverrides.ToEntity());
+                context.SaveChanges();
             }
         }
     }
