@@ -1,12 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Quickstart.UI;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Rsk.WsFederation;
 using Rsk.WsFederation.Configuration;
 using Rsk.WsFederation.EntityFramework.DbContexts;
