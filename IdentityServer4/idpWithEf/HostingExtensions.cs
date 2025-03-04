@@ -12,13 +12,13 @@ using Rsk.WsFederation.Models;
 
 namespace idpWithEf
 {
-    public class Startup
+    internal static class HostingExtensions
     {
         private static readonly Client RelyingParty = new Client
         {
             ClientId = "rp1",
-            AllowedScopes = {"openid", "profile"},
-            RedirectUris = {"https://localhost:5001/signin-wsfed"},
+            AllowedScopes = { "openid", "profile" },
+            RedirectUris = { "https://localhost:5001/signin-wsfed" },
             ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
         };
 
@@ -28,17 +28,17 @@ namespace idpWithEf
             TokenType = WsFederationConstants.TokenTypes.Saml2TokenProfile11
         };
 
-        public void ConfigureServices(IServiceCollection services)
+        public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
-            services.AddMvc();
-            services.AddControllersWithViews();
+            builder.Services.AddMvc();
+            builder.Services.AddControllersWithViews();
 
             // WsFed database (DbContext)
-            services.AddDbContext<WsFederationConfigurationDbContext>(db =>
+            builder.Services.AddDbContext<WsFederationConfigurationDbContext>(db =>
                 db.UseInMemoryDatabase("RelyingParties"));
-            services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();
+            builder.Services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();
 
-            services.AddIdentityServer(options =>
+            builder.Services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
                     options.Events.RaiseInformationEvents = true;
@@ -48,7 +48,7 @@ namespace idpWithEf
                 .AddTestUsers(TestUsers.Users)
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApis())
-                .AddInMemoryClients(new List<Client> {RelyingParty})
+                .AddInMemoryClients(new List<Client> { RelyingParty })
                 .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
                 .AddWsFederationPlugin(options =>
                 {
@@ -56,10 +56,12 @@ namespace idpWithEf
                     options.LicenseKey = "";
                 })
                 .AddRelyingPartyStore<RelyingPartyStore>();
-                //.AddInMemoryRelyingParties(new List<RelyingParty>());
+            //.AddInMemoryRelyingParties(new List<RelyingParty>());
+
+            return builder.Build();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public static WebApplication ConfigurePipeline(this WebApplication app)
         {
             app.UseDeveloperExceptionPage();
 
@@ -75,9 +77,11 @@ namespace idpWithEf
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+
+            return app;
         }
 
-        private void SeedRelyingPartyDatabase(IApplicationBuilder app)
+        private static void SeedRelyingPartyDatabase(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
