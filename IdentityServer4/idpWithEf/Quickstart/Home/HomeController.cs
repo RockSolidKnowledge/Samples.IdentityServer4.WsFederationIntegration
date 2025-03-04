@@ -2,60 +2,57 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
 
-namespace IdentityServer4.Quickstart.UI
+namespace IdentityServer4.Quickstart.UI;
+
+[SecurityHeaders]
+[AllowAnonymous]
+public class HomeController : Controller
 {
-    [SecurityHeaders]
-    [AllowAnonymous]
-    public class HomeController : Controller
-    {
-        private readonly IIdentityServerInteractionService _interaction;
-        private readonly IWebHostEnvironment _environment;
+    private readonly IIdentityServerInteractionService _interaction;
+    private readonly IWebHostEnvironment _environment;
 
-        public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
+    public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
+    {
+        _interaction = interaction;
+        _environment = environment;
+    }
+
+    public IActionResult Index()
+    {
+        if (_environment.IsDevelopment())
         {
-            _interaction = interaction;
-            _environment = environment;
+            // only show in development
+            return View();
         }
 
-        public IActionResult Index()
+        return NotFound();
+    }
+
+    /// <summary>
+    /// Shows the error page
+    /// </summary>
+    public async Task<IActionResult> Error(string errorId)
+    {
+        var vm = new ErrorViewModel();
+
+        // retrieve error details from identityserver
+        ErrorMessage? message = await _interaction.GetErrorContextAsync(errorId);
+        if (message != null)
         {
-            if (_environment.IsDevelopment())
+            vm.Error = message;
+
+            if (!_environment.IsDevelopment())
             {
                 // only show in development
-                return View();
+                message.ErrorDescription = null;
             }
-
-            return NotFound();
         }
 
-        /// <summary>
-        /// Shows the error page
-        /// </summary>
-        public async Task<IActionResult> Error(string errorId)
-        {
-            var vm = new ErrorViewModel();
-
-            // retrieve error details from identityserver
-            var message = await _interaction.GetErrorContextAsync(errorId);
-            if (message != null)
-            {
-                vm.Error = message;
-
-                if (!_environment.IsDevelopment())
-                {
-                    // only show in development
-                    message.ErrorDescription = null;
-                }
-            }
-
-            return View("Error", vm);
-        }
+        return View("Error", vm);
     }
 }

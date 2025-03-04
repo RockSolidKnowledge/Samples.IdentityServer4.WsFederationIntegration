@@ -1,4 +1,5 @@
 @page
+@using idp.Pages.Consent
 @model idp.Pages.Consent.Index
 @{
 }
@@ -35,7 +36,7 @@
                                 Personal Information
                             </div>
                             <ul class="list-group list-group-flush">
-                                @foreach (var scope in Model.View.IdentityScopes)
+                                @foreach (ScopeViewModel? scope in Model.View.IdentityScopes)
                                 {
                                     <partial name="_ScopeListItem" model="@scope" />
                                 }
@@ -53,7 +54,7 @@
                                 Application Access
                             </div>
                             <ul class="list-group list-group-flush">
-                                @foreach (var scope in Model.View.ApiScopes)
+                                @foreach (ScopeViewModel? scope in Model.View.ApiScopes)
                                 {
                                     <partial name="_ScopeListItem" model="scope" />
                                 }

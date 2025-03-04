@@ -59,7 +59,7 @@
                     </div>
                     <div class="panel-body">
                         <ul class="list-inline">
-                            @foreach (var provider in Model.VisibleExternalProviders)
+                            @foreach (ExternalProvider? provider in Model.VisibleExternalProviders)
                             {
                                 <li>
                                     <a class="btn btn-default"

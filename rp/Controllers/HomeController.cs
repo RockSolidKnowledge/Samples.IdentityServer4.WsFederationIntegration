@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-namespace rp.Controllers
+namespace rp.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View();
+    }
 
-        [Authorize]
-        public IActionResult Login()
-        {
-            return View("Index");
-        }
+    [Authorize]
+    public IActionResult Login()
+    {
+        return View("Index");
+    }
 
-        public IActionResult Logout()
-        {
-            return SignOut("cookie", "wsfed");
-        }
+    public IActionResult Logout()
+    {
+        return SignOut("cookie", "wsfed");
     }
 }

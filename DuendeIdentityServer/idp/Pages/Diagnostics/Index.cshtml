@@ -1,4 +1,5 @@
 @page
+@using System.Security.Claims
 @model idp.Pages.Diagnostics.Index
 
 <div class="diagnostics-page">
@@ -14,7 +15,7 @@
                 </div>
                 <div class="card-body">
                     <dl>
-                        @foreach (var claim in Model.View.AuthenticateResult.Principal.Claims)
+                        @foreach (Claim? claim in Model.View.AuthenticateResult.Principal.Claims)
                         {
                             <dt>@claim.Type</dt>
                             <dd>@claim.Value</dd>
@@ -31,7 +32,7 @@
                 </div>
                 <div class="card-body">
                     <dl>
-                        @foreach (var prop in Model.View.AuthenticateResult.Properties.Items)
+                        @foreach (KeyValuePair<string, string?> prop in Model.View.AuthenticateResult.Properties.Items)
                         {
                             <dt>@prop.Key</dt>
                             <dd>@prop.Value</dd>
@@ -41,7 +42,7 @@
                             <dt>Clients</dt>
                             <dd>
                                 @{
-                                    var clients = Model.View.Clients.ToArray();
+                                    string[]? clients = Model.View.Clients.ToArray();
                                     for(var i = 0; i < clients.Length; i++)
                                     {
                                         <text>@clients[i]</text>

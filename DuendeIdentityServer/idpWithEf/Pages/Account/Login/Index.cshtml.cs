@@ -61,7 +61,7 @@ public class Index : PageModel
     public async Task<IActionResult> OnPost()
     {
         // check if we are in the context of an authorization request
-        var context = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl);
+        AuthorizationRequest? context = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl);
 
         // the user clicked the "cancel" button
         if (Input.Button != "login")
@@ -95,7 +95,7 @@ public class Index : PageModel
             // validate username/password against in-memory store
             if (_users.ValidateCredentials(Input.Username, Input.Password))
             {
-                var user = _users.FindByUsername(Input.Username);
+                TestUser? user = _users.FindByUsername(Input.Username);
                 await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username, clientId: context?.Client.ClientId));
 
                 // only set explicit expiration here if user chooses "remember me". 
@@ -163,10 +163,10 @@ public class Index : PageModel
             ReturnUrl = returnUrl
         };
             
-        var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+        AuthorizationRequest? context = await _interaction.GetAuthorizationContextAsync(returnUrl);
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
-            var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
+            bool local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
 
             // this is meant to short circuit the UI and only trigger the one external IdP
             View = new ViewModel
@@ -178,15 +178,15 @@ public class Index : PageModel
 
             if (!local)
             {
-                View.ExternalProviders = new[] { new ViewModel.ExternalProvider { AuthenticationScheme = context.IdP } };
+                View.ExternalProviders = [new ViewModel.ExternalProvider { AuthenticationScheme = context.IdP }];
             }
 
             return;
         }
 
-        var schemes = await _schemeProvider.GetAllSchemesAsync();
+        IEnumerable<AuthenticationScheme>? schemes = await _schemeProvider.GetAllSchemesAsync();
 
-        var providers = schemes
+        List<ViewModel.ExternalProvider>? providers = schemes
             .Where(x => x.DisplayName != null)
             .Select(x => new ViewModel.ExternalProvider
             {
@@ -194,7 +194,7 @@ public class Index : PageModel
                 AuthenticationScheme = x.Name
             }).ToList();
 
-        var dyanmicSchemes = (await _identityProviderStore.GetAllSchemeNamesAsync())
+        IEnumerable<ViewModel.ExternalProvider>? dyanmicSchemes = (await _identityProviderStore.GetAllSchemeNamesAsync())
             .Where(x => x.Enabled)
             .Select(x => new ViewModel.ExternalProvider
             {
@@ -207,7 +207,7 @@ public class Index : PageModel
         var allowLocal = true;
         if (context?.Client.ClientId != null)
         {
-            var client = await _clientStore.FindEnabledClientByIdAsync(context.Client.ClientId);
+            Client? client = await _clientStore.FindEnabledClientByIdAsync(context.Client.ClientId);
             if (client != null)
             {
                 allowLocal = client.EnableLocalLogin;

@@ -1,10 +1,11 @@
+@using System.Security.Claims
 @model DiagnosticsViewModel
 
 <h1>Authentication cookie</h1>
 
 <h3>Claims</h3>
 <dl>
-    @foreach (var claim in Model.AuthenticateResult.Principal.Claims)
+    @foreach (Claim? claim in Model.AuthenticateResult.Principal.Claims)
     {
         <dt>@claim.Type</dt>
         <dd>@claim.Value</dd>
@@ -13,7 +14,7 @@
 
 <h3>Properties</h3>
 <dl>
-    @foreach (var prop in Model.AuthenticateResult.Properties.Items)
+    @foreach (KeyValuePair<string, string?> prop in Model.AuthenticateResult.Properties.Items)
     {
         <dt>@prop.Key</dt>
         <dd>@prop.Value</dd>
@@ -24,7 +25,7 @@
 {
     <h3>Clients</h3>
     <ul>
-        @foreach (var client in Model.Clients)
+        @foreach (string? client in Model.Clients)
         {
             <li>@client</li>
         }

@@ -8,33 +8,30 @@ namespace idpWithEf;
 public static class Config
 {
     public static IEnumerable<IdentityResource> IdentityResources =>
-        new IdentityResource[]
-        {
-            new IdentityResources.OpenId(),
-            new IdentityResources.Profile(),
-        };
+    [
+        new IdentityResources.OpenId(),
+        new IdentityResources.Profile()
+    ];
 
     public static IEnumerable<ApiScope> ApiScopes =>
-        new ApiScope[]
-        {
-            new ApiScope("scope1"),
-            new ApiScope("scope2"),
-        };
+    [
+        new("scope1"),
+        new("scope2")
+    ];
 
     public static IEnumerable<Client> Clients =>
-        new Client[]
+    [
+        // relying party
+        new()
         {
-            // relying party
-            new Client
-            {
-                ClientId = "rp1",
-                AllowedScopes = {"openid", "profile"},
-                RedirectUris = {"https://localhost:5001/signin-wsfed"},
-                ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
-            }
-        };
+            ClientId = "rp1",
+            AllowedScopes = { "openid", "profile" },
+            RedirectUris = { "https://localhost:5001/signin-wsfed" },
+            ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation
+        }
+    ];
 
-    public static readonly RelyingParty RelyingPartyOverrides = new RelyingParty
+    public static readonly RelyingParty RelyingPartyOverrides = new()
     {
         Realm = "rp1",
         TokenType = WsFederationConstants.TokenTypes.Saml2TokenProfile11

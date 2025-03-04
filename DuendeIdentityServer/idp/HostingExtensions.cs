@@ -14,9 +14,10 @@ internal static class HostingExtensions
         builder.Services.AddIdentityServer(options =>
             {
                 options.KeyManagement.Enabled = true;
-                options.KeyManagement.SigningAlgorithms = new[] {
-                    new SigningAlgorithmOptions("RS256") {UseX509Certificate = true}
-                };
+                options.KeyManagement.SigningAlgorithms =
+                [
+                    new SigningAlgorithmOptions("RS256") { UseX509Certificate = true }
+                ];
 
                 options.Events.RaiseErrorEvents = true;
                 options.Events.RaiseInformationEvents = true;
@@ -39,9 +40,9 @@ internal static class HostingExtensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
         app.UseDeveloperExceptionPage();
 
@@ -51,7 +52,7 @@ internal static class HostingExtensions
             .UseIdentityServerWsFederationPlugin();
 
         app.UseAuthorization();
-        
+
         app.MapRazorPages()
             .RequireAuthorization();
 

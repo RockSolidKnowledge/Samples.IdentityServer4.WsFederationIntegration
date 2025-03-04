@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
+using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using Microsoft.AspNetCore.Authorization;
@@ -33,15 +34,15 @@ public class Index : PageModel
         
     public async Task OnGet()
     {
-        var grants = await _interaction.GetAllUserGrantsAsync();
+        IEnumerable<Grant>? grants = await _interaction.GetAllUserGrantsAsync();
 
         var list = new List<GrantViewModel>();
-        foreach (var grant in grants)
+        foreach (Grant? grant in grants)
         {
-            var client = await _clients.FindClientByIdAsync(grant.ClientId);
+            Client? client = await _clients.FindClientByIdAsync(grant.ClientId);
             if (client != null)
             {
-                var resources = await _resources.FindResourcesByScopeAsync(grant.Scopes);
+                Resources? resources = await _resources.FindResourcesByScopeAsync(grant.Scopes);
 
                 var item = new GrantViewModel()
                 {

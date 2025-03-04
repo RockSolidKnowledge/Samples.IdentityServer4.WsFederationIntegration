@@ -20,20 +20,21 @@ internal static class HostingExtensions
         builder.Services.AddScoped<IWsFederationConfigurationDbContext, WsFederationConfigurationDbContext>();
 
         builder.Services.AddIdentityServer(options =>
-        {
-            options.KeyManagement.Enabled = true;
-            options.KeyManagement.SigningAlgorithms = new[] {
-                    new SigningAlgorithmOptions("RS256") {UseX509Certificate = true}
-                };
+            {
+                options.KeyManagement.Enabled = true;
+                options.KeyManagement.SigningAlgorithms =
+                [
+                    new SigningAlgorithmOptions("RS256") { UseX509Certificate = true }
+                ];
 
-            options.Events.RaiseErrorEvents = true;
-            options.Events.RaiseInformationEvents = true;
-            options.Events.RaiseFailureEvents = true;
-            options.Events.RaiseSuccessEvents = true;
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
 
-            // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
-            options.EmitStaticAudienceClaim = true;
-        })
+                // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
+                options.EmitStaticAudienceClaim = true;
+            })
             .AddTestUsers(TestUsers.Users)
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
@@ -47,9 +48,9 @@ internal static class HostingExtensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
         app.UseDeveloperExceptionPage();
 
@@ -61,7 +62,7 @@ internal static class HostingExtensions
             .UseIdentityServerWsFederationPlugin();
 
         app.UseAuthorization();
-        
+
         app.MapRazorPages()
             .RequireAuthorization();
 
@@ -70,7 +71,8 @@ internal static class HostingExtensions
 
     private static void SeedRelyingPartyDatabase(this IApplicationBuilder app)
     {
-        using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        using (IServiceScope? serviceScope =
+               app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
             var context = serviceScope.ServiceProvider.GetService<WsFederationConfigurationDbContext>();
             if (!context.RelyingParties.Any())
