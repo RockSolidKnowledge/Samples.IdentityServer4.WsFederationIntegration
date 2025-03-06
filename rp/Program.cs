@@ -1,7 +1,6 @@
 ﻿using rp;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-HostingExtensions.ConfigureServices(builder.Services);
-WebApplication app = builder.Build();
-HostingExtensions.Configure(app);
+WebApplication app = builder.ConfigureServices();
+app.ConfigurePipeline();
 await app.RunAsync();

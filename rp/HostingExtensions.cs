@@ -1,13 +1,13 @@
 ﻿namespace rp;
 
-internal static class HostingExtensions
+public static class HostingExtensions
 {
-    public static void ConfigureServices(IServiceCollection services)
+    public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
-        services.AddMvc();
-        services.AddControllersWithViews();
+        builder.Services.AddMvc();
+        builder.Services.AddControllersWithViews();
 
-        services.AddAuthentication(options =>
+        builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "cookie";
                 options.DefaultChallengeScheme = "wsfed";
@@ -20,9 +20,11 @@ internal static class HostingExtensions
                 options.RequireHttpsMetadata = false;
                 options.SignInScheme = "cookie";
             });
+
+        return builder.Build();
     }
 
-    public static void Configure(IApplicationBuilder app)
+    public static WebApplication ConfigurePipeline(this WebApplication app)
     {
         app.UseDeveloperExceptionPage();
 
@@ -33,6 +35,11 @@ internal static class HostingExtensions
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+        // Map routes
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        return app;
     }
 }

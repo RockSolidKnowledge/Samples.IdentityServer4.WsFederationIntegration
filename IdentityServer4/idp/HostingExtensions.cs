@@ -58,7 +58,11 @@ internal static class HostingExtensions
 
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+        // Map routes
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
         return app;
     }
