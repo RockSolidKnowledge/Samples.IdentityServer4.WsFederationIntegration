@@ -1,17 +1,6 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using rp;
 
-namespace rp
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-    }
-}
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+WebApplication app = builder.ConfigureServices();
+app.ConfigurePipeline();
+await app.RunAsync();
